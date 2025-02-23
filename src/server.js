@@ -1,18 +1,16 @@
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./database");
-const userRoutes = require("./routes"); // Import the routes
+const userRoutes = require("./routes");
 
 require("dotenv").config();
 
 const app = express();
-app.use(express.json()); // Middleware to parse JSON
+app.use(express.json());
 app.use(cors());
 
-// Connect to MongoDB
 connectDB();
 
-// Use the routes
 app.use(userRoutes);
 
 app.get("/", (req, res) => {
