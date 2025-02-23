@@ -1,63 +1,48 @@
 const express = require("express");
+const axios = require("axios");
 const User = require("./models");
 
 const router = express.Router();
 
-// ✅ Create a new user (POST /users)
-router.post("/users", async (req, res) => {
+// ✅ Aggregated User Information API (GET /users/:userId/aggregated-info)
+router.get("/users/:userId/aggregated-info", async (req, res) => {
     try {
-        const { first_name, last_name, email, phone_number } = req.body;
-        
-        // Check if the email already exists
-        let user = await User.findOne({ email });
-        if (user) {
-            return res.status(400).json({ error: "User with this email already exists" });
-        }
+        const { userId } = req.params;
 
-        user = new User({ first_name, last_name, email, phone_number });
-        await user.save();
-        res.status(201).json({ message: "User created", user });
+        // Third-party API URLs
+        const baseURL = "https://dev.api.gabriel.money/backend-challenge";
+        const endpoints = {
+            userInfo: `${baseURL}/user/${userId}`,
+            accountInfo: `${baseURL}/accounts/${userId}`,
+            cardInfo: `${baseURL}/cards/${userId}`,
+            transactionsInfo: `${baseURL}/transactions/${userId}`
+        };
+
+        // Fetch all data concurrently
+        const requests = Object.entries(endpoints).map(async ([key, url]) => {
+            try {
+                const response = await axios.get(url);
+                return { key, data: response.data };
+            } catch (error) {
+                console.error(`Error fetching ${key}:`, error.message);
+                return { key, data: null }; // Fallback if request fails
+            }
+        });
+
+        const responses = await Promise.all(requests);
+
+        // Construct the final aggregated response
+        const aggregatedData = responses.reduce((acc, response) => {
+            acc[response.key] = response.data;
+            return acc;
+        }, {});
+
+        res.json(aggregatedData);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        console.error("Aggregated API Error:", err);
+        res.status(500).json({ error: "Failed to fetch aggregated user data" });
     }
 });
 
-// ✅ Retrieve a user by ID (GET /users/:userId)
-router.get("/users/:userId", async (req, res) => {
-    try {
-        const user = await User.findById(req.params.userId);
-        if (!user) {
-            return res.status(404).json({ error: "User not found" });
-        }
-        res.json(user);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
-
-// ✅ Update a user by ID (PATCH /users/:userId)
-router.patch("/users/:userId", async (req, res) => {
-    try {
-        const user = await User.findByIdAndUpdate(req.params.userId, req.body, { new: true });
-        if (!user) {
-            return res.status(404).json({ error: "User not found" });
-        }
-        res.json({ message: "User updated", user });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
-
-router.delete("/users/:userId", async (req, res) => {
-    try {
-        const user = await User.findByIdAndDelete(req.params.userId);
-        if (!user) {
-            return res.status(404).json({ error: "User not found" });
-        }
-        res.json({ message: "User deleted successfully" });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
-
+// ✅ Export the router
 module.exports = router;
