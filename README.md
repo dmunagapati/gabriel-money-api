@@ -10,7 +10,7 @@
 ## API Architecture Diagram
 The following diagram represents the API architecture, displaying the interactions between the database, external API's, and API layers.
 
-![API Architecture](architecture-diagram.png)
+![API Architecture](ArchitectureDiagram.png)
 
 
 ## Key Components
