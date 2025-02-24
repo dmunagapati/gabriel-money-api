@@ -56,7 +56,7 @@ PORT=3000
 
 ### Test the API endpoints
 
-# to create a new users (POST):
+to create a new users (POST):
 
 curl -X POST http://localhost:3000/api/users \
 -H "Content-Type: application/json" \
@@ -67,17 +67,17 @@ curl -X POST http://localhost:3000/api/users \
     "phone_number": "+19709456544"
 }'
 
-# the expected response should be:
+the expected response should be:
 
 {
   "userId": "USERIDHERE"
 }
 
-# to get user data (GET):
+to get user data (GET):
 
 curl -X GET http://localhost:3000/api/users/<USERIDHERE>
 
-# this is the expected response
+this is the expected response
 
 {
     "userId": "USERIDHERE",
@@ -88,7 +88,7 @@ curl -X GET http://localhost:3000/api/users/<USERIDHERE>
 }
 
 
-# to update a user's data (PATCH)
+to update a user's data (PATCH)
 
 curl -X PATCH http://localhost:3000/api/users/USERIDHERE \
 -H "Content-Type: application/json" \
@@ -96,7 +96,7 @@ curl -X PATCH http://localhost:3000/api/users/USERIDHERE \
     "email": "john.new.email@example.com"
 }'
 
-# this is the expected response:
+this is the expected response:
 
 {
     "userId": "USERIDHERE",
@@ -106,21 +106,21 @@ curl -X PATCH http://localhost:3000/api/users/USERIDHERE \
     "phone_number": "+19709456544"
 }
 
-# to delete a user
+to delete a user
 
 curl -X DELETE http://localhost:3000/api/users/USERIDHERE
 
-# the expected response:
+the expected response:
 
 {
     "message": "User deleted successfully"
 }
 
-# to fetch aggregated user data (GET):
+to fetch aggregated user data (GET):
 
 curl -X GET http://localhost:3000/api/users/375b799c-d2d4-4290-ba8a-3f32d4f5ca92/aggregated-info
 
-# this is an example expected response:
+this is an example expected response:
 
 {
     "userInfo": {
@@ -142,11 +142,11 @@ curl -X GET http://localhost:3000/api/users/375b799c-d2d4-4290-ba8a-3f32d4f5ca92
     "transactionsInfo": [...]
 }
 
-# to deploy the API:
+to deploy the API:
 
 vercel --prod
 
-# the expected output is a public url where your api is hosted
+the expected output is a public url where your api is hosted
 
 Thank you!
 Deepthi Munagapati
