@@ -10,7 +10,7 @@
 ## API Architecture Diagram
 The following diagram represents the API architecture, displaying the interactions between the database, external API's, and API layers.
 
-![API Architecture](link)
+![API Architecture]([link](https://github.com/dmunagapati/gabriel-money-api/blob/main/ArchitectureDiagram.png?raw=true))
 
 ## Key Components
 - Frontend Client: Interacts with the API (e.g., Postman, web app).
