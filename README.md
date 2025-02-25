@@ -1,4 +1,4 @@
-# Gabriel Money: Backend Intern Challenge
+# Gabriel Money: Backend Intern Challenge, Deepthi Munagapati
 
 ## This project is a backend API for managing user data and integrating with third-party banking services using
 - Crud Operations for user management
@@ -190,9 +190,10 @@ the expected output is a public url where your api is hosted
           phone_number: String
        });
        const User = mongoose.model("User", userSchema);
+  4. Finally I implemented CRUD APIs
+     - POST/user to create new user
+     - GET/users/:userId to retrieve user
+     - PATCH/users/:userId to update user
+     - DELETE/users/:userId to delete user
 
- 
-
-Thank you!
-Deepthi Munagapati
-
+This project successfully implements a robust backend API that efficiently manages user data, integrates third-party financial services, and follows good practices for scalability and maintainability. This is a system that is both efficient and easy to deploy.
