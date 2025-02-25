@@ -42,11 +42,11 @@ PORT=3000
  NOTE: if you are using MongoDB Atlas (Cloud) replace MONGO_URI with your database connection string
 
 ### Start MongoDB
-# if you are running MongoDB locally, start the service with:
+if you are running MongoDB locally, start the service with:
 
 > mongod --dbpath /data/db
 
-# else if you are using Homebrew on macOS use:
+else if you are using Homebrew on macOS use:
 
 > brew services start mongodb-community
 
